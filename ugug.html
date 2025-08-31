@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+
+
+
+
+
+
+
+
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute School Memories Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Patrick+Hand&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', cursive;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffccd5 0%, #ffb6c1 50%, #ff9a8b 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .memory-card {
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+            border: 3px solid #ffffff;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-10px) rotate(2deg) scale(1.03);
+            box-shadow: 0 25px 50px rgba(255, 105, 180, 0.3);
+        }
+        
+        .memory-image {
+            transition: all 0.4s ease;
+            border-bottom: 3px solid #ffffff;
+        }
+        
+        .memory-card:hover .memory-image {
+            transform: scale(1.08);
+        }
+        
+        .memory-overlay {
+            background: linear-gradient(to top, rgba(255,182,193,0.9) 0%, rgba(255,182,193,0.2) 80%);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .memory-card:hover .memory-overlay {
+            opacity: 1;
+        }
+        
+        .bounce {
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .wiggle {
+            animation: wiggle 3s ease-in-out infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            75% { transform: rotate(-2deg); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .heart-beat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .sparkle {
+            position: relative;
+        }
+        
+        .sparkle::after {
+            content: '✨';
+            position: absolute;
+            animation: sparkle 3s ease-in-out infinite;
+            opacity: 0;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .sticker {
+            background: radial-gradient(circle at 30% 30%, #ffffff, #ffebee);
+            border: 2px dashed #ff6b95;
+        }
+        
+        .cute-tag {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .cute-button {
+            background: linear-gradient(45deg, #ff6b95, #ff9a8b);
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(255, 107, 149, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .cute-button:hover {
+            transform: translateY(-3px) rotate(2deg);
+            box-shadow: 0 8px 25px rgba(255, 107, 149, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto max-w-7xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="float inline-block relative">
+                <svg class="w-20 h-20 text-pink-400 heart-beat" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                </svg>
+                <div class="sparkle absolute top-0 right-0">✨</div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 bounce">Our Best Memories 💖</h1>
+            <p class="text-xl text-white opacity-90 wiggle">Best friends forever and always!</p>
+        </header>
+
+        <!-- Memories Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Memory Card 1 - Gossiping -->
+            <div class="memory-card bg-white rounded-3xl overflow-hidden cursor-pointer group">
+                <div class="relative overflow-hidden">
+                    <img 
+                        src="https://i.pinimg.com/736x/de/95/6a/de956a1d65bb50f0c95cfe2ccbab50a4.jpg" 
+                        alt="Two best friends whispering and giggling in school hallway with lockers in background, sharing secrets"
+                        class="memory-image w-full h-64 object-cover"
+                        onerror="this.style.background='linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%)'; this.alt='Friends gossiping in school hallway'"
+                    >
+                    <div class="memory-overlay absolute inset-0 flex items-end p-6">
+                        <div class="text-pink-800">
+                            <h3 class="font-bold text-xl">Secret Gossip Sessions</h3>
+                            <p class="text-sm">Now we can gossip in calls and texts only</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="sticker p-4 rounded-2xl mb-4">
+                        <p class="text-gray-700 font-patrick-hand text-lg">"Remember when we'd huddle by the lockers and share all the tea? Those were the best memories ever! 🤫"</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="cute-tag">#Gossip</span>
+                        <span class="cute-tag">#Secrets</span>
+                        <span class="cute-tag">#LunchBreak</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Card 2 - Sharing Food -->
+            <div class="memory-card bg-white rounded-3xl overflow-hidden cursor-pointer group">
+                <div class="relative overflow-hidden">
+                    <img 
+                        src="https://i.pinimg.com/736x/b9/64/ce/b964cecee38e77a2099f72fa1487591b.jpg" 
+                        alt="Friends sharing lunch boxes and snacks on school benches, laughing and trying each other's food"
+                        class="memory-image w-full h-64 object-cover"
+                        onerror="this.style.background='linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)'; this.alt='Friends sharing food at school'"
+                    >
+                    <div class="memory-overlay absolute inset-0 flex items-end p-6">
+                        <div class="text-pink-800">
+                            <h3 class="font-bold text-xl">Lunch Box Swap</h3>
+                            <p class="text-sm">I wish i could enjoy those days more</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="sticker p-4 rounded-2xl mb-4">
+                        <p class="text-gray-700 font-patrick-hand text-lg">"remember out meal session during class when no one is watching and we secretly having lumch on last bench🍪"</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="cute-tag">#FoodSwap</span>
+                        <span class="cute-tag">#Cafeteria</span>
+                        <span class="cute-tag">#Snacks</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Card 3 - Laughing -->
+            <div class="memory-card bg-white rounded-3xl overflow-hidden cursor-pointer group">
+                <div class="relative overflow-hidden">
+                    <img 
+                        src="https://i.pinimg.com/736x/61/5d/f9/615df93bc15a400a813a9ad3eb0860b8.jpg" 
+                        alt="Friends laughing uncontrollably in classroom with books and papers scattered, one friend wiping tears of laughter"
+                        class="memory-image w-full h-64 object-cover"
+                        onerror="this.style.background='linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'; this.alt='Friends laughing in classroom'"
+                    >
+                    <div class="memory-overlay absolute inset-0 flex items-end p-6">
+                        <div class="text-pink-800">
+                            <h3 class="font-bold text-xl">Giggles Galore</h3>
+                            <p class="text-sm">During Classess we used to laugh at our own jokes, i'did never forgot those.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="sticker p-4 rounded-2xl mb-4">
+                        <p class="text-gray-700 font-patrick-hand text-lg">"That time we couldn't stop laughing during classes rather than focusing on lectures ...worth it! 😂"</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="cute-tag">#Laughter</span>
+                        <span class="cute-tag">#Classroom</span>
+                        <span class="cute-tag">#Funny</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Card 4 - Study Sessions -->
+            <div class="memory-card bg-white rounded-3xl overflow-hidden cursor-pointer group">
+                <div class="relative overflow-hidden">
+                    <img 
+                        src="https://i.pinimg.com/736x/d0/b7/da/d0b7da6bed196d8b2e6e50d6439dfd1e.jpg" 
+                        alt="Friends studying together in library with textbooks and highlighters, helping each other with homework"
+                        class="memory-image w-full h-64 object-cover"
+                        onerror="this.style.background='linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)'; this.alt='Friends studying in library'"
+                    >
+                    <div class="memory-overlay absolute inset-0 flex items-end p-6">
+                        <div class="text-pink-800">
+                            <h3 class="font-bold text-xl">can't we go back to those days?</h3>
+                            <p class="text-sm">still wanted a time machine</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="sticker p-4 rounded-2xl mb-4">
+                        <p class="text-gray-700 font-patrick-hand text-lg">"All the study sessions turned into laughing session and heart-to-heart talks. You made the tea more interesting! 📚"</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="cute-tag">#Study</span>
+                        <span class="cute-tag">#Library</span>
+                        <span class="cute-tag">#Homework</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Card 5 - School Events -->
+            <div class="memory-card bg-white rounded-3xl overflow-hidden cursor-pointer group">
+                <div class="relative overflow-hidden">
+                    <img 
+                        src="https://i.pinimg.com/736x/90/0f/7a/900f7af783dd3754109e37695fdb5e10.jpg" 
+                        alt="memories"
+                        class="memory-image w-full h-64 object-cover"
+                        onerror="this.style.background='linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)'; this.alt='Friends at school dance'"
+                    >
+                    <div class="memory-overlay absolute inset-0 flex items-end p-6">
+                        <div class="text-pink-800">
+                            <h3 class="font-bold text-xl">Can we go to the past?</h3>
+                            <p class="text-sm">I want to spend more time with you</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="sticker p-4 rounded-2xl mb-4">
+                        <p class="text-gray-700 font-patrick-hand text-lg">"Remember those hostel days, the best days coz i was with you the whole days"</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="cute-tag">#Prom</span>
+                        <span class="cute-tag">#Dance</span>
+                        <span class="cute-tag">#Memories</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Card 6 - Sleepovers -->
+            <div class="memory-card bg-white rounded-3xl overflow-hidden cursor-pointer group">
+                <div class="relative overflow-hidden">
+                    <img 
+                        src="https://i.pinimg.com/736x/b9/64/ce/b964cecee38e77a2099f72fa1487591b.jpg" 
+                        alt="Friends having sleepover with pillows and blankets everywhere, watching movies and eating popcorn"
+                        class="memory-image w-full h-64 object-cover"
+                        onerror="this.style.background='linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)'; this.alt='Friends at sleepover'"
+                    >
+                    <div class="memory-overlay absolute inset-0 flex items-end p-6">
+                        <div class="text-pink-800">
+                            <h3 class="font-bold text-xl">miss you more when we talk</h3>
+                            <p class="text-sm">All those days the the best when i used to wait to meet you tomorrow</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="sticker p-4 rounded-2xl mb-4">
+                        <p class="text-gray-700 font-patrick-hand text-lg">" My favorite day! the days you were with me🌙"</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="cute-tag">#Sleepover</span>
+                        <span class="cute-tag">#Weekend</span>
+                        <span class="cute-tag">#Besties</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Memory Button -->
+        <div class="text-center mt-16">
+            <button class="cute-button text-white px-8 py-4 rounded-full font-bold text-lg relative overflow-hidden group">
+                <span class="relative z-10 flex items-center">
+                    <svg class="w-6 h-6 mr-2 bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Add School Memory
+                </span>
+                <div class="absolute inset-0 bg-gradient-to-r from-pink-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </button>
+            <p class="text-white mt-4 text-sm opacity-80 wiggle">Click to add your favorite school memory with besties! 📝</p>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="fixed top-10 left-10 text-4xl opacity-20 float">📚</div>
+        <div class="fixed top-20 right-20 text-3xl opacity-30 bounce">🍎</div>
+        <div class="fixed bottom-20 left-20 text-5xl opacity-25 wiggle">🎓</div>
+        <div class="fixed bottom-10 right-10 text-4xl opacity-30 float">✨</div>
+    </div>
+
+    <script>
+        // Cute interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const memoryCards = document.querySelectorAll('.memory-card');
+            const addButton = document.querySelector('.cute-button');
+            
+            // Memory card interactions
+            memoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95) rotate(-2deg)';
+                    
+                    // Create cute heart effect
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.className = 'absolute text-2xl animate-ping';
+                    heart.style.left = Math.random() * 80 + 10 + '%';
+                    heart.style.top = Math.random() * 80 + 10 + '%';
+                    this.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        heart.remove();
+                    }, 300);
+                });
+            });
+            
+            // Add button animation
+            addButton.addEventListener('click', function() {
+                this.innerHTML = '<span class="animate-pulse text-xl">Creating magic...</span>';
+                
+                // Create floating stars effect
+                for (let i = 0; i < 5; i++) {
+                    const star = document.createElement('div');
+                    star.innerHTML = '⭐';
+                    star.className = 'absolute text-2xl animate-bounce';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    this.appendChild(star);
+                    
+                    setTimeout(() => star.remove(), 2000);
+                }
+                
+                setTimeout(() => {
+                    this.innerHTML = '<span class="relative z-10 flex items-center"><svg class="w-6 h-6 mr-2 bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>Add School Memory</span>';
+                }, 2000);
+            });
+            
+            // Add random floating elements on page load
+            function addFloatingElements() {
+                const elements = ['📖', '🎨', '🍕', '🎵', '🎭', '🖍️', '📝'];
+                const container = document.querySelector('.container');
+                
+                elements.forEach((emoji, index) => {
+                    const el = document.createElement('div');
+                    el.innerHTML = emoji;
+                    el.className = 'absolute text-3xl opacity-20 pointer-events-none';
+                    el.style.left = Math.random() * 90 + 5 + '%';
+                    el.style.top = Math.random() * 90 + 5 + '%';
+                    el.style.animation = `float ${4 + Math.random() * 4}s ease-in-out infinite`;
+                    el.style.animationDelay = index * 0.5 + 's';
+                    container.appendChild(el);
+                });
+            }
+            
+            addFloatingElements();
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🎉 The Funniest Cute Birthday Board Ever 🎂</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    background: linear-gradient(135deg, #ffd6e7 0%, #ffefba 100%);
+    min-height: 100vh;
+  }
+
+  .pin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .pin-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .pin-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .pin-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .pin-card:hover .pin-image {
+    transform: scale(1.05);
+  }
+
+  .pin-content {
+    padding: 20px;
+  }
+
+  .pin-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .pin-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    min-height: 54px;
+  }
+
+  .pin-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .pin-likes {
+    display: flex;
+    align-items: center;
+    color: #e91e63;
+    font-weight: 500;
+  }
+
+  .pin-likes i {
+    margin-right: 6px;
+  }
+
+  .pin-save {
+    background: linear-gradient(45deg, #e91e63, #ff6b9d);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .pin-save:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+  }
+
+  .header {
+    background: linear-gradient(135deg, #ff6b9d 0%, #ff9999 100%);
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .header h1 {
+    color: white;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .category-filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 0 20px;
+  }
+
+  .category-btn {
+    background: white;
+    border: 2px solid #ff6b9d;
+    color: #ff6b9d;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .category-btn.active,
+  .category-btn:hover {
+    background: #ff6b9d;
+    color: white;
+  }
+
+  .floating-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #e91e63, #ff6b9d);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .floating-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+  }
+
+  @media (max-width: 768px) {
+    .pin-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 15px;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎉 Here is the pinterest board for your perfect birthday🎂</h1>
+    <p>Because birthdays are serious business... said no one ever! 😂</p>
+  </div>
+
+  <div class="category-filter" role="group" aria-label="Filter birthday pins by category">
+    <button class="category-btn active" data-category="all" aria-pressed="true">All the Fun</button>
+    <button class="category-btn" data-category="cakes" aria-pressed="false">Cake Boss</button>
+    <button class="category-btn" data-category="decor" aria-pressed="false">Party Stuff</button>
+    <button class="category-btn" data-category="gifts" aria-pressed="false">Gift Wrapping Ninjas</button>
+    <button class="category-btn" data-category="outfits" aria-pressed="false">Dress to Impress</button>
+  </div>
+
+  <main class="pin-grid" id="pinGrid" aria-live="polite">
+    <!-- Cake Pins -->
+    <article class="pin-card" data-category="cakes" tabindex="0" aria-label="Funny birthday cake idea: 'Cake? I thought you said nap!'">
+      <img
+        src="https://i.pinimg.com/736x/3d/7e/46/3d7e466ad1074c79d1e8b87350837786.jpg"
+        alt="A colorful layered birthday cake with sprinkles and candles"
+        class="pin-image"
+        title="Cake? I thought you said nap!"
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">Cake? I Thought You Said Nap!</h3>
+        <p class="pin-description">
+          Because honestly, the best part of birthdays is the cake... or the nap. Why not both?
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="1200 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 1.2k
+          </div>
+          <button class="pin-save" aria-label="Save Cake? I Thought You Said Nap! pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="pin-card" data-category="cakes" tabindex="0" aria-label="Funny cupcake idea: 'Calories don’t count on birthdays!'">
+      <img
+        src="https://i.pinimg.com/736x/32/b4/34/32b434ffb410ce1d235e3e52d1f75b45.jpg"
+        alt="Cupcakes with pastel pink frosting and edible flowers"
+        class="pin-image"
+        title="Calories don’t count on birthdays!"
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">Calories Don’t Count Today</h3>
+        <p class="pin-description">
+          These cupcakes are basically health food. Pink frosting = vitamins, right?
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="894 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 894
+          </div>
+          <button class="pin-save" aria-label="Save Calories Don’t Count Today pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Decoration Pins -->
+    <article class="pin-card" data-category="decor" tabindex="0" aria-label="Funny balloon arch idea: 'Balloons: Because adulting is hard'">
+      <img
+        src="https://i.pinimg.com/736x/80/12/b0/8012b08a7be5459c9a54afc3932c1633.jpg"
+        alt="Pastel balloon arch with gold accents"
+        class="pin-image"
+        title="Balloons: Because adulting is hard"
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">Balloons: Adulting’s Best Friend</h3>
+        <p class="pin-description">
+          When life gets tough, blow up some balloons and pretend you’re 5 again.
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="2300 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 2.3k
+          </div>
+          <button class="pin-save" aria-label="Save Balloons: Adulting’s Best Friend pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="pin-card" data-category="decor" tabindex="0" aria-label="Funny birthday table setup: 'Table set for maximum snack attack'">
+      <img
+        src="https://i.pinimg.com/736x/d8/d9/52/d8d952f10ed29eb80d788718061b6901.jpg"
+        alt="Birthday table with floral centerpiece and pastel plates"
+        class="pin-image"
+        title="Table set for maximum snack attack"
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">Snack Attack Ready</h3>
+        <p class="pin-description">
+          Warning: This table may cause uncontrollable snacking and happy dance moves.
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="1700 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 1.7k
+          </div>
+          <button class="pin-save" aria-label="Save Snack Attack Ready pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Gift Pins -->
+    <article class="pin-card" data-category="gifts" tabindex="0" aria-label="Funny gift wrapping idea: 'Wrapped with love and a little bit of duct tape'">
+      <img
+        src="https://i.pinimg.com/736x/b5/59/79/b55979b31205d30701fa593fcf552504.jpg"
+        alt="Beautifully wrapped birthday gifts with ribbons and flowers"
+        class="pin-image"
+        title="Wrapped with love and a little bit of duct tape"
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">Wrapped Like a Pro-ish</h3>
+        <p class="pin-description">
+          When you try your best but duct tape saves the day. Gift wrapping level: Expert-ish.
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="1500 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 1.5k
+          </div>
+          <button class="pin-save" aria-label="Save Wrapped Like a Pro-ish pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="pin-card" data-category="gifts" tabindex="0" aria-label="Funny gift idea: 'Gifts that scream, ‘I totally remembered your birthday!’'">
+      <img
+        src="https://i.pinimg.com/736x/41/f3/ee/41f3ee26dee8411fab36b778fd835b0d.jpg"
+        alt="Stack of colorful birthday presents with bows"
+        class="pin-image"
+        title="Gifts that scream, ‘I totally remembered your birthday!’"
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">I Totally Remembered!</h3>
+        <p class="pin-description">
+          Presents so good, they’ll forget you almost forgot the date.
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="1100 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 1.1k
+          </div>
+          <button class="pin-save" aria-label="Save I Totally Remembered! pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Outfit Pins -->
+    <article class="pin-card" data-category="outfits" tabindex="0" aria-label="Funny birthday outfit idea: 'Dress like you’re the birthday cake'">
+      <img
+        src="https://i.pinimg.com/1200x/63/47/2b/63472b26d81e65bd95778ed568dd5fcc.jpg"
+        alt="Person wearing a colorful birthday party outfit with balloons"
+        class="pin-image"
+        title="Dress like you’re the birthday cake"
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">Dress Like The Cake</h3>
+        <p class="pin-description">
+          Warning: Wearing this outfit may cause sudden cravings and compliments.
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="980 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 980
+          </div>
+          <button class="pin-save" aria-label="Save Dress Like The Cake pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="pin-card" data-category="outfits" tabindex="0" aria-label="Funny birthday outfit idea: 'Party hat? Check. Dancing shoes? Double check.'">
+      <img
+        src="https://i.pinimg.com/736x/a7/a1/fb/a7a1fb1cfd1e6005bd3b519356d90df8.jpg"
+        alt="Person wearing a party hat and colorful outfit dancing"
+        class="pin-image"
+        title="Party hat? Check. Dancing shoes? Double check."
+      />
+      <div class="pin-content">
+        <h3 class="pin-title">Heels that feels heaven</h3>
+        <p class="pin-description">
+          Because no birthday party is complete without a little dance floor magic.
+        </p>
+        <div class="pin-meta">
+          <div class="pin-likes" aria-label="860 likes">
+            <i class="fas fa-heart" aria-hidden="true"></i> 860
+          </div>
+          <button class="pin-save" aria-label="Save Party Hat & Dancing Shoes pin">Pin It!</button>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <button class="floating-btn" aria-label="Scroll to top" title="Back to top" id="scrollTopBtn">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Category filter logic
+    const buttons = document.querySelectorAll(".category-btn");
+    const pins = document.querySelectorAll(".pin-card");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Update active button
+        buttons.forEach((b) => {
+          b.classList.remove("active");
+          b.setAttribute("aria-pressed", "false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
+
+        const category = btn.getAttribute("data-category");
+        pins.forEach((pin) => {
+          if (category === "all" || pin.getAttribute("data-category") === category) {
+            pin.style.display = "block";
+          } else {
+            pin.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Save button fun effect
+    document.querySelectorAll(".pin-save").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        btn.textContent = "Pinned! 🎉";
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.textContent = "Pin It!";
+          btn.disabled = false;
+        }, 2000);
+      });
+    });
+
+    // Scroll to top button
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        scrollBtn.style.display = "flex";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
